@@ -41,7 +41,7 @@ describe('AccordianComponent', () => {
 
     describe(' createDom method', () => {
         beforeAll(() => {
-          component.NUMBER_OF_ITEMS = 5;
+          component.headings = 5;
         });
 
         it('should return a HTML Node with correct number of nodes', () => {

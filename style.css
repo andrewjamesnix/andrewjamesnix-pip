@@ -20,13 +20,16 @@
     display: block;
 }
 
+.hide-element {
+    display: none;
+}
+
 .gameArea {
     width: 800px;
     height: 200px;
 }
 
 button {
-    position: absolute;
     top: 220px;
     left: 200px;
 }

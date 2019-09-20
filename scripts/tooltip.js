@@ -1,11 +1,11 @@
 class TooltipComponent {
-    setupDom = () => {
+    constructor() {
         this.container = document.getElementById('container');
         this.tooltips = document.querySelectorAll('.tooltip');
         this.output = document.querySelector('.output');
-    };
+    }
 
-    init = () => {
+    init() {
         this.tooltips.forEach(tooltip => {
             tooltip.addEventListener('mouseover', (e) => {
                 let holder = e.srcElement.getAttribute('datatoolcontent');
@@ -18,13 +18,13 @@ class TooltipComponent {
             tooltip.addEventListener('mouseout', () => {
                 this.output.style.display = 'none';
             });
-            this.myInterval = setInterval( () => {
+            this.myInterval = setInterval(() => {
                 this.output.style.display = 'none'
             }, 3000);
         });
     };
 }
+
 const tooltip = new TooltipComponent();
-tooltip.setupDom();
 tooltip.init();
 

@@ -1,28 +1,29 @@
-    class AccordianComponent {
+class AccordianComponent {
 
-    NUMBER_OF_ITEMS = 4;
-    container = document.createElement('div');
-    nodeList = [];
+    constructor(headings) {
+        this.headings = headings;
+        this.container = document.createElement('div');
+        this.nodeList = [];
+    }
 
-    init = () => {
+    init () {
         this.container.setAttribute('id', 'container');
         document.body.appendChild(this.container);
         accordian.createDom();
         accordian.addListeners();
-    };
+    }
 
-    createDom = () => {
+    createDom () {
         let headingDiv, contentDiv;
         this.nodeList = [];
+        this.container.innerText = '';
 
-        for(let i = 0; i < this.NUMBER_OF_ITEMS; i++) {
+        for(let i = 0; i < this.headings; i++) {
             headingDiv = this.createElement('heading', i);
             contentDiv = this.createElement('content', i);
             this.nodeList.push(headingDiv);
             this.nodeList.push(contentDiv);
         }
-
-        this.container.innerText = '';
 
         for(let i = 0; i < this.nodeList.length; i++) {
             this.container.append(this.nodeList[i]);
@@ -30,9 +31,9 @@
 
         this.mainEl =  this.container.querySelectorAll(".heading");
         this.contentEl =  this.container.querySelectorAll(".content");
-    };
+    }
 
-    createElement = (name, i) => {
+    createElement(name, i) {
         let newElement = document.createElement("div");
 
         if (name === 'heading') {
@@ -43,9 +44,9 @@
             newElement.innerText =  (i + 1) + '. Lorem gypsum conut el sadat el plinky plonky ';
         }
         return newElement;
-    };
+    }
 
-    addListeners = () => {
+    addListeners() {
       if (this.mainEl.length > 0) {
         this.mainEl.forEach((header, i) => {
             header.addEventListener('click', () => {
@@ -54,15 +55,15 @@
             });
         });
       }
-    };
+    }
 
-    removeActiveClass = () => {
+    removeActiveClass() {
         this.contentEl.forEach((content, i) => {
             this.contentEl[i].classList.remove('active');
         });
     };
 
-    suffix = (num) => {
+    suffix(num) {
         let i = num % 10;
         let j = num % 100;
 
@@ -70,7 +71,7 @@
             (i === 2 && j !== 12) ? 'nd' :
                 (i === 3 && j!== 13 ) ? 'rd' :
                     'th';
-    };
+    }
 }
 
-const accordian = new AccordianComponent();
+const accordian = new AccordianComponent(8);

@@ -1,54 +1,53 @@
 describe('BoxGameComponent', () => {
-    const component = new BoxGameComponent();
-    let containerStub, gameAreaStub, scoreStub, parent;
-    describe('createGameAreaDom method', () => {
+    const component = new BoxGameComponent(100, 1, 0, 8, 2);
+
+    describe('Move the square - moveSquare() method', () => {
         beforeEach(() => {
-            containerStub = {
-                id: 'container',
-                children: [],
-                setAttribute: sinon.stub(),
-                appendChild: sinon.stub(),
-                querySelectorAll: sinon.stub()
-            };
-            gameAreaStub = {
-                class: 'gameArea',
-                setAttribute: sinon.stub()
-            };
-            scoreStub = {
-                class: 'score',
-                setAttribute: sinon.stub()
-            };
-            component.createGameAreaDom();
-        });
-        it('adds correct class to the gameArea element', () => {
-            containerStub.querySelectorAll.returns([gameAreaStub]);
-            var expectedClass = 'gameArea';
+            let square = document.createElement('div');
+            let activeSquare = document.createElement('div');
+            square.className = 'square';
+            activeSquare.className = 'square active';
+            component.squares = [];
 
-            expect(component.gameAreaEl.className).toBe(expectedClass);
-        });
-        it('adds correct class to the score element', () => {
-            containerStub.querySelectorAll.returns([gameAreaStub]);
-            var expectedClass = 'score';
-
-            expect(component.score.className).toBe(expectedClass);
-        });
-    });
-    describe('build method', () => {
-        beforeEach(() => {
-            component.build();
-        });
-
-        it('should create the Player box and grid boxes and one to be active', () => {
-            expect(component.box).toBeTruthy();
-            expect(component.squares.length).toBe(17);
-
-            let active = component.squares.find((element) => {
-                if (element) {
-                    return element.classList.contains('active')
+            for (let i = 0; i < 16; i++) {
+                if (i === 8) {
+                    component.squares[i] = activeSquare;
+                } else {
+                    component.squares[i] = square;
                 }
-            });
+            }
 
-            expect(active).toBeTruthy();
+            component.box = {
+                x: 8,
+                y: 8,
+                offsetWidth: 100,
+                offsetHeight: 100,
+                style: {
+                    left: '8px',
+                    top: '8px'
+                }
+            };
+            component.gameArea = {
+                bottom: 208,
+                height: 200,
+                left: -32,
+                right: 768,
+                top: 8,
+                width: 800,
+                x: -32,
+                y: 8
+            };
+        });
+
+        it('the square should move to the correct position', () => {
+            component.moveSquare('right');
+            expect(component.player.square).toEqual(2);
+            component.moveSquare('down');
+            expect(component.player.square).toEqual(10);
+            component.moveSquare('left');
+            expect(component.player.square).toEqual(9);
+            component.moveSquare('up');
+            expect(component.player.square).toEqual(1);
         });
     });
 });

@@ -2,7 +2,7 @@ describe('TooltipComponent', () => {
     const component = new TooltipComponent();
     describe('init method', () => {
         beforeEach(() => {
-            component.setupDom();
+
             component.container = document.createElement('DIV');
             component.container.setAttribute('id', 'container');
             const para = document.createElement('DIV');
